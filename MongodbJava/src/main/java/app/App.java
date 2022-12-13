@@ -20,6 +20,10 @@ public class App {
     public static GridFSBucket gridFSBucket = GridFSBuckets.create(database);
 
     public static void main(String[] args) throws IOException {
-        Export.exportFile();
+
+        Import.importFile("src/main/java/repository/files/file2.txt");
+//        Export.exportFile();
+//        Delete.deleteFile("src/main/java/repository/files/file2.txt");
+
     }
 }

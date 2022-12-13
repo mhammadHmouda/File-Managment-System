@@ -14,12 +14,13 @@ import static app.App.gridFSBucket;
 
 public class Import {
     public static void importFile(String filePath) throws IOException {
+        String type = filePath.split("\\.")[1];
+        String name  = filePath.split("/")[filePath.split("/").length - 1];
         try (InputStream streamToUploadFrom = Files.newInputStream(Paths.get(filePath))) {
             GridFSUploadOptions options = new GridFSUploadOptions()
-                    .chunkSizeBytes(1048576)
-                    .metadata(new Document("type", "txt file"));
+                    .metadata(new Document("type", type));
 
-            ObjectId fileId = gridFSBucket.uploadFromStream("file.txt", streamToUploadFrom, options);
+            ObjectId fileId = gridFSBucket.uploadFromStream(name , streamToUploadFrom, options);
             System.out.println("The file id of the uploaded file is: " + fileId.toHexString());
         }
     }
