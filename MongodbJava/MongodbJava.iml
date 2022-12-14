@@ -15,5 +15,6 @@
     <orderEntry type="library" name="Maven: org.mongodb:bson:4.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:4.8.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.mongodb:bson-record-codec:4.8.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.mysql:mysql-connector-j:unknown" level="project" />
   </component>
 </module>

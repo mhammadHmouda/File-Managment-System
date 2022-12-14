@@ -16,6 +16,7 @@ public class Import {
     public static void importFile(String filePath) throws IOException {
         String type = filePath.split("\\.")[1];
         String name  = filePath.split("/")[filePath.split("/").length - 1];
+
         try (InputStream streamToUploadFrom = Files.newInputStream(Paths.get(filePath))) {
             GridFSUploadOptions options = new GridFSUploadOptions()
                     .metadata(new Document("type", type));
