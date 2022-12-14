@@ -1,11 +1,14 @@
 package app;
 
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import java.io.IOException;
+
+import org.bson.Document;
 import repository.modify.*;
 
 
@@ -25,5 +28,8 @@ public class App {
 //        Export.exportFile();
 //        Delete.deleteFile("src/main/java/repository/files/file2.txt");
 
+        MongoCollection<Document> collection = database.getCollection("fs.chunks");
+        collection.find();
     }
+
 }
