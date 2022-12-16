@@ -1,10 +1,10 @@
-package filedemo.model;
+package filerepository.model;
 
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "files2")
+@Table(name = "files3")
 public class DBFile {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -17,16 +17,20 @@ public class DBFile {
 
     private long size;
 
+
+    private int latestVersion;
+
     @Lob
     private byte[] data;
 
     public DBFile() { }
 
-    public DBFile(String fileName, String fileType, Long size, byte[] data) {
+    public DBFile(String fileName, String fileType, Long size,int latestVersion, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
         this.size = size;
+        this.latestVersion = latestVersion;
     }
 
     public String getId() {
@@ -64,4 +68,8 @@ public class DBFile {
     public long getSize() {return size;}
 
     public void setSize(long size) {this.size = size;}
+
+    public int getLatestVersion() {return latestVersion;}
+
+    public void setLatestVersion(int latestVersion) {this.latestVersion = latestVersion;}
 }

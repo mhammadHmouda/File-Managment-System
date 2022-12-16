@@ -1,4 +1,4 @@
-package filedemo.exception;
+package filerepository.exception;
 
 
 public class FileStorageException extends RuntimeException {

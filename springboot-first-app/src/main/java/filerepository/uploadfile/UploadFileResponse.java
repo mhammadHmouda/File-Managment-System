@@ -1,4 +1,4 @@
-package filedemo.payload;
+package filerepository.uploadfile;
 
 public class UploadFileResponse {
     private String fileName;

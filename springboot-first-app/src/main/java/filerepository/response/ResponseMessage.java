@@ -1,4 +1,4 @@
-package filedemo.response;
+package filerepository.response;
 
 public class ResponseMessage {
     private String message;
