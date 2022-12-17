@@ -1,7 +1,7 @@
-package filerepository.controller;
+package app.filerepository.controller;
 
-import filerepository.service.ImportService;
-import filerepository.uploadfile.UploadFileResponse;
+import app.filerepository.service.ImportService;
+import app.filerepository.uploadfile.UploadFileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

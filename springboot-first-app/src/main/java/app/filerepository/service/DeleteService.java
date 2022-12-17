@@ -1,8 +1,8 @@
-package filerepository.service;
+package app.filerepository.service;
 
-import filerepository.model.DBFile;
-import filerepository.repository.DBFileRepository;
-import filerepository.response.ResponseMessage;
+import app.filerepository.model.DBFile;
+import app.filerepository.repository.DBFileRepository;
+import app.filerepository.response.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
