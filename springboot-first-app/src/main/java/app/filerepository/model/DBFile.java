@@ -1,4 +1,4 @@
-package filerepository.model;
+package app.filerepository.model;
 
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;

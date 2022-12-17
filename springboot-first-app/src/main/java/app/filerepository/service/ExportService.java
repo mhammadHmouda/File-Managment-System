@@ -1,9 +1,8 @@
-package filerepository.service;
+package app.filerepository.service;
 
-import filerepository.model.DBFile;
-import filerepository.repository.DBFileRepository;
-import filerepository.response.ResponseFile;
-import filerepository.response.ResponseMessage;
+import app.filerepository.model.DBFile;
+import app.filerepository.repository.DBFileRepository;
+import app.filerepository.response.ResponseFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

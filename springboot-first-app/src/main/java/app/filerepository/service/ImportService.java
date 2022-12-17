@@ -1,8 +1,8 @@
-package filerepository.service;
+package app.filerepository.service;
 
-import filerepository.model.DBFile;
-import filerepository.uploadfile.UploadFileResponse;
-import filerepository.repository.DBFileRepository;
+import app.filerepository.model.DBFile;
+import app.filerepository.uploadfile.UploadFileResponse;
+import app.filerepository.repository.DBFileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,8 +11,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ImportService {

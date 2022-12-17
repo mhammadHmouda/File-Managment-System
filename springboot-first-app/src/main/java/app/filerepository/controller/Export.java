@@ -1,11 +1,9 @@
-package filerepository.controller;
+package app.filerepository.controller;
 
-import filerepository.response.ResponseFile;
-import filerepository.service.ExportService;
+import app.filerepository.response.ResponseFile;
+import app.filerepository.service.ExportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

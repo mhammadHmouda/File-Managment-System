@@ -1,4 +1,4 @@
-package filerepository.uploadfile;
+package app.filerepository.uploadfile;
 
 public class UploadFileResponse {
     private String fileName;
