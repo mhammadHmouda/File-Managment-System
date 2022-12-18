@@ -1,7 +1,7 @@
-package filerepository.controller;
+package app.filerepository.controller;
 
-import filerepository.response.ResponseMessage;
-import filerepository.service.DeleteService;
+import app.filerepository.response.ResponseMessage;
+import app.filerepository.service.DeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
