@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,14 +25,15 @@ public class ExportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ExportService.class);
 
-    public ResponseEntity<ByteArrayResource> getFile(String name) {
-        List<DBFile> dbFiles = fileDBRepository.findByName(name);
-//        if(dbFiles.isEmpty()){
-//            return new ResponseMessage("The file not exist!");
-//        }
+    public ResponseEntity<?> getFile(String val, String name) {
+        List<DBFile> dbFiles = FactoryExport.factory(val, name, fileDBRepository);
+
+        if(dbFiles.isEmpty()){
+            return new ResponseEntity<>("File Not Exist!", HttpStatus.NOT_FOUND);
+        }
+
         DBFile dbFile = dbFiles.stream().max(Comparator.comparing(DBFile::getLatestVersion)).get();
 
-        logger.info("Get File done !");
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "/attachment; filename=\"" + dbFile.getFileName() + "\"")

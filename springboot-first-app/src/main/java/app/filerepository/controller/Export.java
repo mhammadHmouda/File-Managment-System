@@ -16,9 +16,17 @@ public class Export {
     @Autowired
     private ExportService exportService;
 
-    @GetMapping("/downloadFile/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        return exportService.getFile(fileName);
+    @GetMapping("/exportByName/{fileName}")
+    public ResponseEntity<?> exportByName(@PathVariable String fileName) {
+        return exportService.getFile(fileName, "fileName");
+    }
+    @GetMapping("/exportByType/{fileType}")
+    public ResponseEntity<?> exportByType(@PathVariable String fileType) {
+        return exportService.getFile(fileType, "fileType");
+    }
+    @GetMapping("/exportBySize/{size}")
+    public ResponseEntity<?> exportBySize(@PathVariable String size) {
+        return exportService.getFile(size, "size");
     }
 
     @GetMapping("/files")
