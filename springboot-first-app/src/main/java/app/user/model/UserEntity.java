@@ -2,7 +2,7 @@ package app.user.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user4")
+@Table(name = "user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
