@@ -15,7 +15,7 @@ import app.user.model.LoginRequest;
 import app.user.model.UserEntity;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -24,21 +24,20 @@ public class AuthController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
 
-    @PostMapping("/signin")
+    @PostMapping("/signIn")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
             UserEntity userDetails = userRepository.findByUsername(loginRequest.getUsername());
 
-            if(!userDetails.getUsername().equals(loginRequest.getUsername())){
-                return new ResponseEntity<>("invalid Username" , HttpStatus.NOT_FOUND);
+            if (userDetails == null) {
+                return new ResponseEntity<>("invalid Username", HttpStatus.NOT_FOUND);
             }
-            if(!passwordEncoder().matches(loginRequest.getPassword(), userDetails.getPassword())){
-                return new ResponseEntity<>("invalid Password" , HttpStatus.NOT_FOUND);
+            if (!passwordEncoder().matches(loginRequest.getPassword(), userDetails.getPassword())) {
+                return new ResponseEntity<>("invalid Password", HttpStatus.NOT_FOUND);
             }
 
-            return new ResponseEntity<>("SignIn has done Successfully" , HttpStatus.FOUND);
-        }
-        catch(Exception e) {
+            return new ResponseEntity<>("SignIn has done Successfully", HttpStatus.FOUND);
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Failed Login!");
         }
     }
@@ -46,25 +45,21 @@ public class AuthController {
         return new BCryptPasswordEncoder();
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signUp")
     public ResponseEntity<?> addNewUser(@RequestBody UserEntity user) {
 
         try {
             UserEntity userDetails = userRepository.findByUsername(user.getUsername());
 
-            if(userDetails != null)
-            {
-                return ResponseEntity.badRequest()
-                        .body("app.user already exist");
+            if (userDetails != null) {
+                return ResponseEntity.badRequest().body("user already exist");
             }
-            else {
-                user.setPassword( passwordEncoder().encode(user.getPassword()));
-                userRepository.save(user);
-                return new ResponseEntity<>("Signup has created Successfully" , HttpStatus.FOUND);
-            }
-        }
-        catch(Exception e)
-        {
+
+            user.setPassword(passwordEncoder().encode(user.getPassword()));
+            userRepository.save(user);
+            return new ResponseEntity<>("Signup has created Successfully", HttpStatus.FOUND);
+
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("something went wrong");
         }
     }
