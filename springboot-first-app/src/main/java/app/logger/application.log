@@ -1,0 +1,8 @@
+2022-12-20 01:43:40.505  INFO DESKTOP-8G37RRE --- [           main] a.App                                    : in main class
+2022-12-20 01:43:40.529  INFO DESKTOP-8G37RRE --- [           main] a.App                                    : info logging is printed
+2022-12-20 01:43:40.529  WARN DESKTOP-8G37RRE --- [           main] a.App                                    : logging warn is worked
+2022-12-20 01:43:40.530 ERROR DESKTOP-8G37RRE --- [           main] a.App                                    : logging error is worked
+2022-12-20 01:47:24.355  INFO DESKTOP-8G37RRE --- [           main] a.App                                    : in main class
+2022-12-20 01:47:24.364  INFO DESKTOP-8G37RRE --- [           main] a.App                                    : info logging is printed
+2022-12-20 01:47:24.364  WARN DESKTOP-8G37RRE --- [           main] a.App                                    : logging warn is worked
+2022-12-20 01:47:24.364 ERROR DESKTOP-8G37RRE --- [           main] a.App                                    : logging error is worked
