@@ -44,8 +44,8 @@ public class ExportService {
         return fileDBRepository.findAll().stream().map(dbFile -> {
             String fileDownloadUri = ServletUriComponentsBuilder
                     .fromCurrentContextPath()
-                    .path("/downloadFile/")
-                    .path(dbFile.getId())
+                    .path("/exportByName/")
+                    .path(dbFile.getFileName())
                     .toUriString();
 
             return new ResponseFile(

@@ -36,8 +36,8 @@ public class ImportService {
         DBFile dbFile = fileDBRepository.save(FileDB);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(dbFile.getId())
+                .path("/exportByName/")
+                .path(dbFile.getFileName())
                 .toUriString();
 
         return new UploadFileResponse(dbFile.getFileName(), fileDownloadUri,
