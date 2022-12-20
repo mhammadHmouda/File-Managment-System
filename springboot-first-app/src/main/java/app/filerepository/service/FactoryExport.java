@@ -17,6 +17,9 @@ public class FactoryExport {
         else if(name.equals("size")){
             return dbFileRepository.findBySize(val);
         }
+        else if(name.equals("latestVersion")){
+            return dbFileRepository.findByVersion(val);
+        }
      return new ArrayList<>();
     }
 }

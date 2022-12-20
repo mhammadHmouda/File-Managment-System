@@ -28,7 +28,10 @@ public class Export {
     public ResponseEntity<?> exportBySize(@PathVariable String size) {
         return exportService.getFile(size, "size");
     }
-
+    @GetMapping("/exportByVersion/{latestVersion}")
+    public ResponseEntity<?> exportByVersion(@PathVariable String latestVersion) {
+        return exportService.getFile(latestVersion, "latestVersion");
+    }
     @GetMapping("/files")
     public List<ResponseFile> getListFiles() {
         return exportService.getAllFiles();

@@ -25,10 +25,17 @@ public class RollBackService{
             if(filesWithName.size() == 0){
                 return new ResponseEntity<>("Invalid file name!", HttpStatus.NOT_FOUND);
             }
+            int latestVersion = 0;
+            for (DBFile dbFile : filesWithName) {
+                if(dbFile.getLatestVersion() > latestVersion)
+                    latestVersion = dbFile.getLatestVersion();
+            }
+            if(rollBackRequest.getVersion() == latestVersion){
+                return new ResponseEntity<>("This is a latest version!", HttpStatus.BAD_REQUEST);
+            }
             List<DBFile> versionWantDelete = filesWithName.stream()
                     .filter(file -> file.getLatestVersion() > rollBackRequest.getVersion())
                     .collect(Collectors.toList());
-
             if(versionWantDelete.size() == 0){
                 return new ResponseEntity<>("This version does not exist!",HttpStatus.NOT_FOUND );
             }
