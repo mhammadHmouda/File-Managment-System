@@ -3,6 +3,8 @@ package app.filerepository.service;
 import app.filerepository.model.DBFile;
 import app.filerepository.repository.DBFileRepository;
 import app.filerepository.response.ResponseMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ public class DeleteService {
 
     @Autowired
     private DBFileRepository dbFileRepository;
+    private static final Logger logger = LoggerFactory.getLogger(DeleteService.class);
 
     public ResponseMessage delete(String id){
         Optional<DBFile> file = dbFileRepository.findById(id);

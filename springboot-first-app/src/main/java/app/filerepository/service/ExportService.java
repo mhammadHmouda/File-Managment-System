@@ -32,7 +32,7 @@ public class ExportService {
             return new ResponseEntity<>("File Not Exist!", HttpStatus.NOT_FOUND);
         }
 
-        DBFile dbFile = dbFiles.stream().max(Comparator.comparing(DBFile::getLatestVersion)).get();
+        DBFile dbFile = dbFiles.stream().max(Comparator.comparing(DBFile::getVersion)).get();
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))

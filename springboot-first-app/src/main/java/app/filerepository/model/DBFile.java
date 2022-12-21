@@ -1,7 +1,11 @@
 package app.filerepository.model;
 
 import javax.persistence.*;
+
+import app.filerepository.service.ExportService;
 import org.hibernate.annotations.GenericGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "files3")
@@ -18,19 +22,19 @@ public class DBFile {
     private long size;
 
 
-    private int latestVersion;
+    private int version;
 
     @Lob
     private byte[] data;
-
+    private static final Logger logger = LoggerFactory.getLogger(DBFile.class);
     public DBFile() { }
 
-    public DBFile(String fileName, String fileType, Long size,int latestVersion, byte[] data) {
+    public DBFile(String fileName, String fileType, Long size,int version, byte[] data) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
         this.size = size;
-        this.latestVersion = latestVersion;
+        this.version = version;
     }
 
     public String getId() {
@@ -69,7 +73,7 @@ public class DBFile {
 
     public void setSize(long size) {this.size = size;}
 
-    public int getLatestVersion() {return latestVersion;}
+    public int getVersion() {return version;}
 
-    public void setLatestVersion(int latestVersion) {this.latestVersion = latestVersion;}
+    public void setVersion(int version) {this.version = version;}
 }
