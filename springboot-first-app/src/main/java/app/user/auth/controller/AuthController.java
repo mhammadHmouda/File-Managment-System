@@ -27,18 +27,22 @@ public class AuthController {
     @PostMapping("/signIn")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         try {
+            logger.info("SignIn started");
             UserEntity userDetails = userRepository.findByUsername(loginRequest.getUsername());
 
             if (userDetails == null) {
+                logger.warn("invalid Username user not found");
                 return new ResponseEntity<>("invalid Username", HttpStatus.NOT_FOUND);
             }
             if (!passwordEncoder().matches(loginRequest.getPassword(), userDetails.getPassword())) {
+                logger.warn("invalid Password not match with username");
                 return new ResponseEntity<>("invalid Password", HttpStatus.NOT_FOUND);
             }
-
+            logger.info(" signIn Done successfully");
             return new ResponseEntity<>("SignIn has done Successfully", HttpStatus.FOUND);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed Login!");
+            logger.error("Failed signIn");
+            return ResponseEntity.badRequest().body("Failed signIn");
         }
     }
     public PasswordEncoder passwordEncoder() {
@@ -49,18 +53,22 @@ public class AuthController {
     public ResponseEntity<?> addNewUser(@RequestBody UserEntity user) {
 
         try {
+            logger.info("SignUp started");
             UserEntity userDetails = userRepository.findByUsername(user.getUsername());
 
             if (userDetails != null) {
+                logger.warn("user already exist");
                 return ResponseEntity.badRequest().body("user already exist");
             }
 
             user.setPassword(passwordEncoder().encode(user.getPassword()));
             userRepository.save(user);
+            logger.info("Signup Done Successfully");
             return new ResponseEntity<>("Signup has created Successfully", HttpStatus.FOUND);
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("something went wrong");
+            logger.error("error in signUp");
+            return ResponseEntity.badRequest().body("something wrong");
         }
     }
 

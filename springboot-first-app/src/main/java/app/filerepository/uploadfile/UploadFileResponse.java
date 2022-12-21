@@ -1,16 +1,21 @@
 package app.filerepository.uploadfile;
 
+import app.filerepository.response.ResponseFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class UploadFileResponse {
     private String fileName;
     private String fileDownloadUri;
     private String fileType;
     private Long size;
-
+    private static final Logger logger = LoggerFactory.getLogger(UploadFileResponse.class);
     public UploadFileResponse(String fileName, String fileDownloadUri, String fileType, Long size) {
         this.fileName = fileName;
         this.fileDownloadUri = fileDownloadUri;
         this.fileType = fileType;
         this.size = size;
+        logger.info("Upload file response created");
     }
 
     public String getFileName() {

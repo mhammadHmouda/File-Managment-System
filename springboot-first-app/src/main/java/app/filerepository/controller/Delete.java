@@ -18,11 +18,13 @@ public class Delete {
 
     @DeleteMapping("/delete/{fileId}")
     public ResponseMessage deleteFile(@PathVariable String fileId){
+        logger.info("create delete response for "+fileId);
         return deleteService.delete(fileId);
     }
 
     @DeleteMapping("/deleteAll")
     public ResponseMessage deleteAllFiles(){
+        logger.info("deleteAllFiles Response created ");
         return deleteService.deleteAllFiles();
     }
 }

@@ -27,7 +27,9 @@ public class DBFile {
     @Lob
     private byte[] data;
     private static final Logger logger = LoggerFactory.getLogger(DBFile.class);
-    public DBFile() { }
+    public DBFile() {
+        logger.info("DBFile has been created ");
+    }
 
     public DBFile(String fileName, String fileType, Long size,int version, byte[] data) {
         this.fileName = fileName;
@@ -35,6 +37,7 @@ public class DBFile {
         this.data = data;
         this.size = size;
         this.version = version;
+        logger.info("created "+fileName+" file ");
     }
 
     public String getId() {
