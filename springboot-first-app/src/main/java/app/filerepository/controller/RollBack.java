@@ -21,6 +21,7 @@ public class RollBack {
     private static final Logger logger = LoggerFactory.getLogger(RollBack.class);
     @PostMapping("/rollBack")
     ResponseEntity<?> rollBack(@RequestBody RollBackRequest rollBackRequest) throws Exception {
+        logger.info("rollBack Response created");
         return rollBack.rollBack(rollBackRequest);
     }
 

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class LoginRequest {
     private String username;
-    private static final Logger logger = LoggerFactory.getLogger(LoginRequest.class);
+
     public String getUsername() {
         return username;
     }

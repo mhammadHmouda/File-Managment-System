@@ -20,6 +20,7 @@ public class UserEntity {
     private String role;
     private static final Logger logger = LoggerFactory.getLogger(UserEntity.class);
     public UserEntity() {
+        logger.info("UserEntity has been created");
     }
 
 
@@ -27,6 +28,7 @@ public class UserEntity {
         this.username = username;
         this.password = password;
         this.role = role;
+        logger.info(username+" user created");
     }
 
     public String getUsername() {

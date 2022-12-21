@@ -24,6 +24,7 @@ public class Import {
     private static final Logger logger = LoggerFactory.getLogger(Import.class);
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        logger.info("uploadFile Response created");
         return importService.store(file);
     }
 
