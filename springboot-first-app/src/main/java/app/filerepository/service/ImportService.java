@@ -3,6 +3,8 @@ package app.filerepository.service;
 import app.filerepository.model.DBFile;
 import app.filerepository.uploadfile.UploadFileResponse;
 import app.filerepository.repository.DBFileRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,7 +19,7 @@ public class ImportService {
 
     @Autowired
     private DBFileRepository fileDBRepository;
-
+    private static final Logger logger = LoggerFactory.getLogger(ImportService.class);
     public UploadFileResponse store(MultipartFile file) throws IOException {
 
         List<DBFile> files = fileDBRepository.findByName(file.getOriginalFilename());
@@ -26,8 +28,8 @@ public class ImportService {
 
         if (!files.isEmpty()) {
             version = files.stream()
-                    .max(Comparator.comparing(DBFile::getLatestVersion))
-                    .get().getLatestVersion() + 1;
+                    .max(Comparator.comparing(DBFile::getVersion))
+                    .get().getVersion() + 1;
         }
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));

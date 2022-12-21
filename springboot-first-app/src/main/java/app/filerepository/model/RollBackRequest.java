@@ -3,7 +3,7 @@ package app.filerepository.model;
 public class RollBackRequest {
 
     private String fileName;
-    private int latestVersion;
+    private int version;
 
 
     public String getFileName() {
@@ -15,10 +15,10 @@ public class RollBackRequest {
     }
 
     public int getVersion() {
-        return latestVersion;
+        return version;
     }
 
     public void setVersion(int version) {
-        this.latestVersion = version;
+        this.version = version;
     }
 }

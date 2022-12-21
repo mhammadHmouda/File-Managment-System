@@ -1,4 +1,8 @@
 package app.user.model;
+import app.filerepository.service.ExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,7 +18,7 @@ public class UserEntity {
     private String password;
     @Column(name="role")
     private String role;
-
+    private static final Logger logger = LoggerFactory.getLogger(UserEntity.class);
     public UserEntity() {
     }
 

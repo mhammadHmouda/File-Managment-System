@@ -1,7 +1,10 @@
 package app.filerepository.controller;
 
+import app.filerepository.enums.ClassificationExport;
 import app.filerepository.response.ResponseFile;
 import app.filerepository.service.ExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +18,22 @@ import java.util.List;
 public class Export {
     @Autowired
     private ExportService exportService;
-
+    private static final Logger logger = LoggerFactory.getLogger(Export.class);
     @GetMapping("/exportByName/{fileName}")
     public ResponseEntity<?> exportByName(@PathVariable String fileName) {
-        return exportService.getFile(fileName, "fileName");
+        return exportService.getFile(fileName, ClassificationExport.FILE_NAME.name());
     }
     @GetMapping("/exportByType/{fileType}")
     public ResponseEntity<?> exportByType(@PathVariable String fileType) {
-        return exportService.getFile(fileType, "fileType");
+        return exportService.getFile(fileType, ClassificationExport.FILE_TYPE.name());
     }
     @GetMapping("/exportBySize/{size}")
     public ResponseEntity<?> exportBySize(@PathVariable String size) {
-        return exportService.getFile(size, "size");
+        return exportService.getFile(size, ClassificationExport.SIZE.name());
     }
-    @GetMapping("/exportByVersion/{latestVersion}")
-    public ResponseEntity<?> exportByVersion(@PathVariable String latestVersion) {
-        return exportService.getFile(latestVersion, "latestVersion");
+    @GetMapping("/exportByVersion/{version}")
+    public ResponseEntity<?> exportByVersion(@PathVariable String version) {
+        return exportService.getFile(version, ClassificationExport.VERSION.name());
     }
     @GetMapping("/files")
     public List<ResponseFile> getListFiles() {
