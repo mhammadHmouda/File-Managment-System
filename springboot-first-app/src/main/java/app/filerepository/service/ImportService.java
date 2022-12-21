@@ -30,6 +30,7 @@ public class ImportService {
             version = files.stream()
                     .max(Comparator.comparing(DBFile::getVersion))
                     .get().getVersion() + 1;
+            logger.info("New version of "+file.getOriginalFilename()+" file created");
         }
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
