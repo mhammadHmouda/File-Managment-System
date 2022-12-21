@@ -1,8 +1,9 @@
-package app.filerepository.service;
+package app.filerepository.services.rollback.impl;
 
 import app.filerepository.model.DBFile;
 import app.filerepository.model.RollBackRequest;
 import app.filerepository.repository.DBFileRepository;
+import app.filerepository.services.rollback.intf.IRollBackService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class RollBackService{
+public class RollBackService implements IRollBackService {
 
     private static final Logger logger = LoggerFactory.getLogger(RollBackRequest.class);
     @Autowired

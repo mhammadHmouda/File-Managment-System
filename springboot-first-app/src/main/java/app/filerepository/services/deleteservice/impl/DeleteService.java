@@ -1,8 +1,9 @@
-package app.filerepository.service;
+package app.filerepository.services.deleteservice.impl;
 
 import app.filerepository.model.DBFile;
 import app.filerepository.repository.DBFileRepository;
 import app.filerepository.response.ResponseMessage;
+import app.filerepository.services.deleteservice.intf.IDeleteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DeleteService {
+public class DeleteService implements IDeleteService {
 
     @Autowired
     private DBFileRepository dbFileRepository;

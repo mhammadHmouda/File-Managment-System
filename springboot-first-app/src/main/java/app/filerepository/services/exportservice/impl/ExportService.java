@@ -1,8 +1,10 @@
-package app.filerepository.service;
+package app.filerepository.services.exportservice.impl;
 
 import app.filerepository.model.DBFile;
 import app.filerepository.repository.DBFileRepository;
 import app.filerepository.response.ResponseFile;
+import app.filerepository.services.FactoryExport;
+import app.filerepository.services.exportservice.intf.IExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ExportService {
+public class ExportService implements IExportService {
 
     @Autowired
     private DBFileRepository fileDBRepository;

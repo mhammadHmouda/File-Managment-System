@@ -1,7 +1,7 @@
 package app.filerepository.controller;
 
-import app.filerepository.service.ExportService;
-import app.filerepository.service.ImportService;
+
+import app.filerepository.services.importservice.intf.IImportService;
 import app.filerepository.uploadfile.UploadFileResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class Import {
 
     @Autowired
-    private ImportService importService;
+    private IImportService importService;
     private static final Logger logger = LoggerFactory.getLogger(Import.class);
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {

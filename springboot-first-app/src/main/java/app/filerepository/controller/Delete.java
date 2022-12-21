@@ -1,8 +1,8 @@
 package app.filerepository.controller;
 
 import app.filerepository.response.ResponseMessage;
-import app.filerepository.service.DeleteService;
-import app.filerepository.service.ExportService;
+import app.filerepository.services.deleteservice.impl.DeleteService;
+import app.filerepository.services.deleteservice.intf.IDeleteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Delete {
     @Autowired
-    private DeleteService deleteService;
+    private IDeleteService deleteService;
     private static final Logger logger = LoggerFactory.getLogger(Delete.class);
 
     @DeleteMapping("/delete/{fileId}")

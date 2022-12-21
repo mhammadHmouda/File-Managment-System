@@ -1,4 +1,4 @@
-package app.filerepository.service;
+package app.filerepository.services;
 
 import app.filerepository.enums.ClassificationExport;
 import app.filerepository.model.DBFile;

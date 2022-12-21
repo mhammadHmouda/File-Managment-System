@@ -1,5 +1,4 @@
-package app.user.model;
-import app.filerepository.service.ExportService;
+package app.userauth.model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,6 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
+
 public class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -31,6 +31,14 @@ public class UserEntity {
         logger.info(username+" user created");
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -48,22 +56,10 @@ public class UserEntity {
     }
 
     public String getRole() {
-
         return role;
     }
 
     public void setRole(String role) {
         this.role = role;
     }
-
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 }

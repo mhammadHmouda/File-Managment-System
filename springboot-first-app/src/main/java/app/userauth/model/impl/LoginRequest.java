@@ -1,12 +1,10 @@
-package app.user.model;
+package app.userauth.model.impl;
 
-import app.filerepository.service.ExportService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import app.userauth.model.intf.ILoginRequest;
 
-public class LoginRequest {
+public class LoginRequest implements ILoginRequest {
     private String username;
-
+    private String password;
     public String getUsername() {
         return username;
     }
@@ -23,5 +21,5 @@ public class LoginRequest {
         this.password = password;
     }
 
-    private String password;
+
 }
