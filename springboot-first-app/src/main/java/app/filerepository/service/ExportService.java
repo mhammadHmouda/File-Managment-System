@@ -29,11 +29,12 @@ public class ExportService {
         List<DBFile> dbFiles = FactoryExport.factory(val, name, fileDBRepository);
 
         if(dbFiles.isEmpty()){
+            logger.warn("This Classify don't match any file");
             return new ResponseEntity<>("File Not Exist!", HttpStatus.NOT_FOUND);
         }
 
         DBFile dbFile = dbFiles.stream().max(Comparator.comparing(DBFile::getVersion)).get();
-
+        logger.info("File is fetched successfully!!");
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(dbFile.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "/attachment; filename=\"" + dbFile.getFileName() + "\"")
@@ -47,6 +48,7 @@ public class ExportService {
                     .path("/exportByName/")
                     .path(dbFile.getFileName())
                     .toUriString();
+
 
             return new ResponseFile(
                     dbFile.getFileName(), fileDownloadUri,
