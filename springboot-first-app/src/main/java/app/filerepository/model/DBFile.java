@@ -2,7 +2,6 @@ package app.filerepository.model;
 
 import javax.persistence.*;
 
-import app.filerepository.service.ExportService;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

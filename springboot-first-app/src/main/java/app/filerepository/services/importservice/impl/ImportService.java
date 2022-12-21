@@ -1,6 +1,7 @@
-package app.filerepository.service;
+package app.filerepository.services.importservice.impl;
 
 import app.filerepository.model.DBFile;
+import app.filerepository.services.importservice.intf.IImportService;
 import app.filerepository.uploadfile.UploadFileResponse;
 import app.filerepository.repository.DBFileRepository;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
-public class ImportService {
+public class ImportService implements IImportService {
 
     @Autowired
     private DBFileRepository fileDBRepository;
