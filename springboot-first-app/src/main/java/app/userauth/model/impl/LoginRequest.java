@@ -1,6 +1,6 @@
-package app.user.model.impl;
+package app.userauth.model.impl;
 
-import app.user.model.intf.ILoginRequest;
+import app.userauth.model.intf.ILoginRequest;
 
 public class LoginRequest implements ILoginRequest {
     private String username;
