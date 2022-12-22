@@ -28,6 +28,9 @@ public class FactoryExport {
         else if(name.equals(ClassificationExport.VERSION.name())){
             logger.info("Classify all files of Size "+val);
             return dbFileRepository.findByVersion(val);
+        }  else if(name.equals(ClassificationExport.DATE.name())){
+            logger.info("Classify all files of Date "+val);
+            return dbFileRepository.findByDate(val);
         }
      return new ArrayList<>();
     }
