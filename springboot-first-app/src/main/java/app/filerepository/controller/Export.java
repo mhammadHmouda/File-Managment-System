@@ -34,7 +34,7 @@ public class Export {
         logger.info("create exportBySize response for: "+size);
         return exportService.getFile(size, ClassificationExport.SIZE.name());
     }
-    @GetMapping("/exportByDate/{size}")
+    @GetMapping("/exportByDate/{importDate}")
     public ResponseEntity<?> exportByDate(@PathVariable String importDate) {
         logger.info("create exportByDate response for: "+importDate);
         return exportService.getFile(importDate, ClassificationExport.DATE.name());
