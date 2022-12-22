@@ -20,8 +20,9 @@ public class DBFile {
 
     private long size;
 
-
     private int version;
+
+    private String importDate;
 
     @Lob
     private byte[] data;
@@ -30,12 +31,13 @@ public class DBFile {
         logger.info("DBFile has been created ");
     }
 
-    public DBFile(String fileName, String fileType, Long size,int version, byte[] data) {
+    public DBFile(String fileName, String fileType, Long size, int version, byte[] data, String date) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
         this.size = size;
         this.version = version;
+        this.importDate = date;
         logger.info("created "+fileName+" file ");
     }
 
@@ -78,4 +80,8 @@ public class DBFile {
     public int getVersion() {return version;}
 
     public void setVersion(int version) {this.version = version;}
+
+    public String getDate() {return importDate;}
+
+    public void setDate(String date) {this.importDate = date;}
 }

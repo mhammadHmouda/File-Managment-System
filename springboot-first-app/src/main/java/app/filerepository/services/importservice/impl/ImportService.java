@@ -31,8 +31,7 @@ public class ImportService implements IImportService {
             logger.info("New version of "+file.getOriginalFilename()+" file created");
         }
 
-        String fileName = file.getOriginalFilename();
-        DBFile FileDB = new DBFile(fileName, file.getContentType(), file.getSize(), version, file.getBytes());
+        DBFile FileDB = new DBFile(file.getOriginalFilename(), file.getContentType(), file.getSize(), version, file.getBytes(), ImportUtils.getCurrentTime());
 
         DBFile dbFile = fileDBRepository.save(FileDB);
 
