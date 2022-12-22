@@ -21,4 +21,9 @@ public interface DBFileRepository extends JpaRepository<DBFile, String> {
     @Query(value = "select * from files3 where version like %?1", nativeQuery = true)
     List<DBFile> findByVersion(String version);
 
+    @Query(value = "select * from files3 where import_date like %?1", nativeQuery = true)
+    List<DBFile> findByDate(String importDate);
+
+
+
 }
