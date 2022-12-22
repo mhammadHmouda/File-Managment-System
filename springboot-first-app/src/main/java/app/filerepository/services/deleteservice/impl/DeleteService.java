@@ -23,10 +23,10 @@ public class DeleteService implements IDeleteService {
         if(file.isPresent()){
             dbFileRepository.deleteById(id);
             logger.info("The file with Id : "+ id +" is deleted");
-            return new ResponseMessage("File deleted successfully!");
+            return ResponseMessage.getInstance("File deleted successfully!");
         } else {
             logger.warn("The file with Id : "+ id + " is not exist!!");
-            return new ResponseMessage("File not exist!");
+            return ResponseMessage.getInstance("File not exist!");
         }
     }
 
@@ -35,14 +35,14 @@ public class DeleteService implements IDeleteService {
             if(dbFileRepository.findAll().toArray().length != 0){
                 dbFileRepository.deleteAll();
                 logger.info("Files deleted successfully!");
-                return new ResponseMessage("Files deleted successfully!");
+                return ResponseMessage.getInstance("Files deleted successfully!");
             }
             logger.warn("No file to deleted!");
-            return new ResponseMessage("No file to deleted!");
+            return ResponseMessage.getInstance("No file to deleted!");
 
         }catch (Exception e){
             logger.error("Cannot delete these files!!!");
-            return new ResponseMessage("Cannot delete these files!!!");
+            return ResponseMessage.getInstance("Cannot delete these files!!!");
         }
     }
 }

@@ -1,9 +1,11 @@
 package app.userauth.services.signupservice.impl;
 
+import app.filerepository.response.ResponseMessage;
 import app.userauth.controller.SignUp;
 import app.userauth.model.UserEntity;
 import app.userauth.repo.DBUserRepository;
 import app.userauth.services.signupservice.intf.ISignUpService;
+import app.userauth.services.utils.AuthUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +24,21 @@ public class SignUpService implements ISignUpService {
 
 
     @PostMapping("/signUp")
-    public ResponseEntity<?> signUp( UserEntity user) {
+    public ResponseMessage signUp(UserEntity user) {
         try {
-            logger.info("SignUp started ");
+            logger.info("Sign up started");
             UserEntity userDetails = userRepository.findByUsername(user.getUsername());
-
             if (userDetails != null) {
                 logger.warn("user already exist");
-                return ResponseEntity.badRequest().body("user already exist");
+                return ResponseMessage.getInstance("User already exist");
             }
             user.setPassword(passwordEncoder().encode(user.getPassword()));
             userRepository.save(user);
-            logger.info("Signup Done Successfully");
-            return new ResponseEntity<>("Signup has created Successfully", HttpStatus.FOUND);
+            logger.info("Sign up done successfully");
+            return ResponseMessage.getInstance("Sign up done successfully");
         } catch (Exception e) {
-            logger.error("error in signUp");
-            return ResponseEntity.badRequest().body("something wrong");
+            logger.error("Error in signUp");
+            return ResponseMessage.getInstance("Something wrong!!, try again");
         }
     }
 }

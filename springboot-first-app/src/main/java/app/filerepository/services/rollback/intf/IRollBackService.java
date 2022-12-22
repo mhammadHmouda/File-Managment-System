@@ -1,9 +1,10 @@
 package app.filerepository.services.rollback.intf;
 
-import app.filerepository.model.RollBackRequest;
+import app.filerepository.request.RollBackRequest;
+import app.filerepository.response.ResponseMessage;
 import org.springframework.http.ResponseEntity;
 
 public interface IRollBackService{
 
-    ResponseEntity<?> rollBack(RollBackRequest rollBackRequest) throws Exception ;
+    ResponseMessage rollBack(RollBackRequest rollBackRequest) throws Exception ;
 }

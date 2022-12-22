@@ -3,7 +3,7 @@ package app.filerepository.services.exportservice.impl;
 import app.filerepository.model.DBFile;
 import app.filerepository.repository.DBFileRepository;
 import app.filerepository.response.ResponseFile;
-import app.filerepository.services.FactoryExport;
+import app.filerepository.services.exportservice.factory.FactoryExport;
 import app.filerepository.services.exportservice.intf.IExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class ExportService implements IExportService {
                     .toUriString();
 
 
-            return new ResponseFile(
+            return ResponseFile.getInstance(
                     dbFile.getFileName(), fileDownloadUri,
                     dbFile.getFileType(), dbFile.getData().length);
 

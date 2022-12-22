@@ -1,8 +1,10 @@
 package app.userauth.services.signinservice.impl;
+import app.filerepository.response.ResponseMessage;
+import app.userauth.model.LoginRequest;
 import app.userauth.model.UserEntity;
-import app.userauth.model.intf.ILoginRequest;
 import app.userauth.repo.DBUserRepository;
 import app.userauth.services.signinservice.intf.ISignInService;
+import app.userauth.services.utils.AuthUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +20,17 @@ public class SignInService implements ISignInService {
 
     private static final Logger logger = LoggerFactory.getLogger(SignInService.class);
 
-    public ResponseEntity<?>  signIn (ILoginRequest loginRequest){
+    public ResponseMessage signIn(LoginRequest loginRequest){
         try {
             logger.info("SignIn started");
+
             UserEntity userDetails = userRepository.findByUsername(loginRequest.getUsername());
 
-            if (userDetails == null) {
-                logger.warn("invalid Username user not found");
-                return new ResponseEntity<>("invalid Username", HttpStatus.NOT_FOUND);
-            }
-            if (!passwordEncoder().matches(loginRequest.getPassword(), userDetails.getPassword())) {
-                logger.warn("invalid Password not match with username");
-                return new ResponseEntity<>("invalid Password", HttpStatus.NOT_FOUND);
-            }
-            logger.info(" signIn Done successfully");
-            return new ResponseEntity<>("SignIn has done Successfully", HttpStatus.FOUND);
+            return AuthUtils.checkValidity(userDetails, loginRequest);
+
         } catch (Exception e) {
             logger.error("Failed signIn");
-            return ResponseEntity.badRequest().body("Failed signIn");
+            return ResponseMessage.getInstance("Failed to sign in!! , try again");
         }
     }
 

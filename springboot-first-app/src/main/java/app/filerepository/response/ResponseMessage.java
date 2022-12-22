@@ -1,18 +1,27 @@
 package app.filerepository.response;
 
 public class ResponseMessage {
-    private String message;
+    private static String message;
 
-    public ResponseMessage(String message) {
-        this.message = message;
+    private static ResponseMessage responseMessage;
+    private ResponseMessage(String newMessage) {
+        message = newMessage;
     }
 
-    public String getMessage() {
+    public static ResponseMessage getInstance(String newMessage){
+        if(responseMessage == null){
+            responseMessage = new ResponseMessage(newMessage);
+        }
+        setMessage(newMessage);
+        return responseMessage;
+    }
+
+    private static void setMessage(String newMessage) {
+        message = newMessage;
+    }
+
+    public String getMessage(){
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
 }

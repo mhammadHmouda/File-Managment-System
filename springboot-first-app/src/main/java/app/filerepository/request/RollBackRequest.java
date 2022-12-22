@@ -1,4 +1,4 @@
-package app.filerepository.model;
+package app.filerepository.request;
 
 public class RollBackRequest {
 
