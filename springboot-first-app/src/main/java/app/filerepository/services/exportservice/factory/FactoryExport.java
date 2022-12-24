@@ -23,7 +23,7 @@ public class FactoryExport {
         }
         else if(name.equals(ClassificationExport.SIZE.name())){
             logger.info("Classify all files of Size "+val);
-            return dbFileRepository.findBySize(val);
+            return dbFileRepository.findBySize(Integer.parseInt(val));
         }
         else if(name.equals(ClassificationExport.VERSION.name())){
             logger.info("Classify all files of Size "+val);
