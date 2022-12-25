@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ISignInService {
-    ResponseMessage signIn (LoginRequest loginRequest);
+    ResponseMessage signIn (LoginRequest loginRequest) throws Exception;
 }
