@@ -11,10 +11,10 @@ import java.util.List;
 
 public class ImportUtils {
 
-    public static int findCorrectVersion(List<DBFile> files) {
+    public static int findLatestVersion(List<DBFile> files) {
         return files.stream()
                 .max(Comparator.comparing(DBFile::getVersion))
-                .get().getVersion() + 1;
+                .get().getVersion();
     }
     public static String getCurrentTime() {
         Calendar cal = Calendar.getInstance();

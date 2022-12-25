@@ -32,7 +32,7 @@ public class DeleteService implements IDeleteService {
 
     public ResponseMessage deleteAllFiles(){
         try {
-            if(dbFileRepository.findAll().toArray().length != 0){
+            if(dbFileRepository.findAll().size() != 0){
                 dbFileRepository.deleteAll();
                 logger.info("Files deleted successfully!");
                 return ResponseMessage.getInstance("Files deleted successfully!");

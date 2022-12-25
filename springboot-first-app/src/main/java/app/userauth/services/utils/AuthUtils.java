@@ -3,7 +3,6 @@ package app.userauth.services.utils;
 import app.filerepository.response.ResponseMessage;
 import app.userauth.model.LoginRequest;
 import app.userauth.model.UserEntity;
-import app.userauth.repo.DBUserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

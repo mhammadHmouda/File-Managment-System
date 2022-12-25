@@ -1,11 +1,11 @@
 package app.filerepository.services.exportservice.intf;
 
 import app.filerepository.response.ResponseFile;
-import org.springframework.http.ResponseEntity;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public interface IExportService {
-    ResponseEntity<?> getFile(String val, String name);
+    ResponseFile getFile(String val, String name) throws FileNotFoundException;
     List<ResponseFile> getAllFiles();
 }

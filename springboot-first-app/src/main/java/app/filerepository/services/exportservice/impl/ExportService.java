@@ -8,13 +8,10 @@ import app.filerepository.services.exportservice.intf.IExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,30 +24,27 @@ public class ExportService implements IExportService {
 
     private static final Logger logger = LoggerFactory.getLogger(ExportService.class);
 
-    public ResponseEntity<?> getFile(String val, String name) {
+    public ResponseFile getFile(String val, String name) throws FileNotFoundException {
         List<DBFile> dbFiles = FactoryExport.factory(val, name, fileDBRepository);
 
         if(dbFiles.isEmpty()){
             logger.warn("This Classify don't match any file");
-            return new ResponseEntity<>("File Not Exist!", HttpStatus.NOT_FOUND);
+            throw new FileNotFoundException("File Not Found!");
         }
 
         DBFile dbFile = dbFiles.stream().max(Comparator.comparing(DBFile::getVersion)).get();
         logger.info("File is fetched successfully!!");
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(dbFile.getFileType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "/attachment; filename=\"" + dbFile.getFileName() + "\"")
-                .body(new ByteArrayResource(dbFile.getData()));
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/exportByName/").path(dbFile.getFileName()).toUriString();
+
+        return ResponseFile.getInstance(dbFile.getFileName(), fileDownloadUri, dbFile.getFileType(), dbFile.getSize());
     }
 
     public List<ResponseFile> getAllFiles() {
         return fileDBRepository.findAll().stream().map(dbFile -> {
-            String fileDownloadUri = ServletUriComponentsBuilder
-                    .fromCurrentContextPath()
-                    .path("/exportByName/")
-                    .path(dbFile.getFileName())
-                    .toUriString();
-
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/exportByName/").path(dbFile.getFileName()).toUriString();
 
             return ResponseFile.getInstance(
                     dbFile.getFileName(), fileDownloadUri,

@@ -5,14 +5,10 @@ import app.userauth.controller.SignUp;
 import app.userauth.model.UserEntity;
 import app.userauth.repo.DBUserRepository;
 import app.userauth.services.signupservice.intf.ISignUpService;
-import app.userauth.services.utils.AuthUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import static app.userauth.encription.PasswordEncode.passwordEncoder;
 @Service
@@ -23,7 +19,6 @@ public class SignUpService implements ISignUpService {
     private static final Logger logger = LoggerFactory.getLogger(SignUp.class);
 
 
-    @PostMapping("/signUp")
     public ResponseMessage signUp(UserEntity user) {
         try {
             logger.info("Sign up started");
