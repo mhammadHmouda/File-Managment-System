@@ -1,6 +1,6 @@
 package app.userauth.services.signinservice.impl;
 
-import app.filerepository.response.ResponseMessage;
+import app.response.ResponseMessage;
 import app.userauth.model.LoginRequest;
 import app.userauth.model.UserEntity;
 import app.userauth.repo.DBUserRepository;

@@ -1,5 +1,5 @@
 package app.userauth.services.signinservice.intf;
-import app.filerepository.response.ResponseMessage;
+import app.response.ResponseMessage;
 import app.userauth.model.LoginRequest;
 import org.springframework.stereotype.Service;
 

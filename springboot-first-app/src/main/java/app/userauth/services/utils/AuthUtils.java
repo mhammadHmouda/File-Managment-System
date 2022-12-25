@@ -1,6 +1,6 @@
 package app.userauth.services.utils;
 
-import app.filerepository.response.ResponseMessage;
+import app.response.ResponseMessage;
 import app.userauth.model.LoginRequest;
 import app.userauth.model.UserEntity;
 import org.slf4j.Logger;

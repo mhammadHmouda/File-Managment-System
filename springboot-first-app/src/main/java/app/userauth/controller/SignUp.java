@@ -1,6 +1,6 @@
 package app.userauth.controller;
 
-import app.filerepository.response.ResponseMessage;
+import app.response.ResponseMessage;
 import app.userauth.model.UserEntity;
 import app.userauth.services.signupservice.intf.ISignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
