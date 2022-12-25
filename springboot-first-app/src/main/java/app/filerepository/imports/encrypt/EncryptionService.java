@@ -1,4 +1,4 @@
-package app.encryption;
+package app.filerepository.imports.encrypt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
