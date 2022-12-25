@@ -51,7 +51,7 @@ public class Classify {
         return classifyDateService.classify(classifyDateRequest, DATE.name());
     }
 
-    @GetMapping("/classifyByName/")
+    @GetMapping("/classifyByName/{fileName}")
     public ResponseMessage classifyByName(@PathVariable String fileName){
         logger.info("Create classifyByDate response");
         return classifyNameService.classify(fileName, FILE_NAME.name());
