@@ -16,7 +16,7 @@ public class SignIn  {
     private ISignInService signInService;
 
     @PostMapping("/signIn")
-    public ResponseMessage authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseMessage authenticateUser(@RequestBody LoginRequest loginRequest) throws Exception {
       return signInService.signIn(loginRequest);
     }
 }

@@ -1,5 +1,6 @@
 package app.filerepository.export.service.impl;
 
+import app.config.TokenProvider;
 import app.filerepository.export.service.factory.FactoryExport;
 import app.filerepository.export.service.intf.IExportService;
 import app.filerepository.imports.encrypt.EncryptionService;
@@ -12,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
 import java.util.Comparator;
 import java.util.List;
+
+import static app.userauth.role.RoleEnum.ADMIN;
+import static app.userauth.role.RoleEnum.STAFF;
 
 @Service
 public class ExportService implements IExportService {
@@ -23,10 +28,19 @@ public class ExportService implements IExportService {
     private DBFileRepository fileDBRepository;
 
     @Autowired
+    TokenProvider jwtTokenUtils;
+
+    @Autowired
     private EncryptionService service;
     private static final Logger logger = LoggerFactory.getLogger(ExportService.class);
 
-    public ResponseFile getFile(String val, String name) throws Exception {
+    public ResponseFile getFile(String val, String name , HttpServletRequest request) throws Exception {
+
+
+        String role =  jwtTokenUtils.getRole(request);
+        if(!role.equalsIgnoreCase(ADMIN.name()) &&!role.equalsIgnoreCase(STAFF.name())){
+            throw new Exception("Unauthorized , No Permission to Export a File");
+        }
         List<DBFile> dbFiles = FactoryExport.factory(val, name, fileDBRepository);
 
         if(dbFiles.isEmpty()){

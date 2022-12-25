@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 import static app.filerepository.export.constant.EndPoints.*;
 import static app.filerepository.export.service.enums.ExportType.*;
 
@@ -18,24 +20,24 @@ public class Export {
     private IExportService exportService;
     private static final Logger logger = LoggerFactory.getLogger(Export.class);
     @GetMapping(EXPORT_BY_NAME_END_POINT)
-    public ResponseFile exportByName(@PathVariable String fileName) throws Exception {
+    public ResponseFile exportByName(@PathVariable String fileName , HttpServletRequest request) throws Exception {
         logger.info("create exportByName response for: "+fileName);
-        return exportService.getFile(fileName, NAME.name());
+        return exportService.getFile(fileName, NAME.name() ,request );
     }
     @GetMapping(EXPORT_BY_TYPE_END_POINT)
-    public ResponseFile exportByType(@PathVariable String fileType) throws Exception {
+    public ResponseFile exportByType(@PathVariable String fileType , HttpServletRequest request) throws Exception {
         logger.info("create exportByType response for: "+fileType);
-        return exportService.getFile(fileType, TYPE.name());
+        return exportService.getFile(fileType, TYPE.name() , request);
     }
     @GetMapping(EXPORT_BY_SIZE_END_POINT)
-    public ResponseFile exportBySize(@PathVariable String size) throws Exception {
+    public ResponseFile exportBySize(@PathVariable String size , HttpServletRequest request) throws Exception {
         logger.info("create exportBySize response for: "+size);
-        return exportService.getFile(size, SIZE.name());
+        return exportService.getFile(size, SIZE.name() , request );
     }
     @GetMapping(EXPORT_BY_DATE_END_POINT)
-    public ResponseFile exportByDate(@PathVariable String importDate) throws Exception {
+    public ResponseFile exportByDate(@PathVariable String importDate , HttpServletRequest request) throws Exception {
         logger.info("create exportByDate response for: "+importDate);
-        return exportService.getFile(importDate, DATE.name());
+        return exportService.getFile(importDate, DATE.name() , request );
     }
 
 }
