@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static app.filerepository.export.constant.EndPoints.*;
+import static app.filerepository.export.constant.ExportEndPoints.*;
 import static app.filerepository.export.service.enums.ExportType.*;
 
 @RestController
@@ -22,7 +22,7 @@ public class Export {
     @GetMapping(EXPORT_BY_NAME_END_POINT)
     public ResponseFile exportByName(@PathVariable String fileName , HttpServletRequest request) throws Exception {
         logger.info("create exportByName response for: "+fileName);
-        return exportService.getFile(fileName, NAME.name() ,request );
+        return exportService.getFile(fileName, NAME.name() ,request);
     }
     @GetMapping(EXPORT_BY_TYPE_END_POINT)
     public ResponseFile exportByType(@PathVariable String fileType , HttpServletRequest request) throws Exception {
@@ -32,12 +32,12 @@ public class Export {
     @GetMapping(EXPORT_BY_SIZE_END_POINT)
     public ResponseFile exportBySize(@PathVariable String size , HttpServletRequest request) throws Exception {
         logger.info("create exportBySize response for: "+size);
-        return exportService.getFile(size, SIZE.name() , request );
+        return exportService.getFile(size, SIZE.name() , request);
     }
     @GetMapping(EXPORT_BY_DATE_END_POINT)
     public ResponseFile exportByDate(@PathVariable String importDate , HttpServletRequest request) throws Exception {
         logger.info("create exportByDate response for: "+importDate);
-        return exportService.getFile(importDate, DATE.name() , request );
+        return exportService.getFile(importDate, DATE.name() , request);
     }
 
 }

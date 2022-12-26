@@ -1,30 +1,40 @@
 package app.fileclassification.service.impl;
 
+import app.exception.ClassifyMethodNotFound;
+import app.fileclassification.cach.ClassifyCaching;
+import app.fileclassification.request.ClassifyDateRequest;
 import app.fileclassification.service.abs.AClassify;
 import app.model.DBFile;
-import app.fileclassification.request.ClassifyDateRequest;
 import app.response.ResponseMessage;
-import app.fileclassification.cach.ClassifyCaching;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static app.fileclassification.constant.ClassifyException.*;
+import static app.fileclassification.constant.ImplementType.IMPLEMENTATION_DATE_CLASS;
+
 @Service
-@Qualifier("date")
+@Qualifier(IMPLEMENTATION_DATE_CLASS)
 public class ClassifyDate extends AClassify<ClassifyDateRequest> {
 
     @Override
-    public ResponseMessage classify(ClassifyDateRequest classifyDateRequest, String typeOfClassification){
-        logger.info("Service of date");
-        List<DBFile> dbFiles = dbFileRepository.getAllBetweenDates(classifyDateRequest.getStartDate(), classifyDateRequest.getEndDate());
+    public ResponseMessage classify(ClassifyDateRequest classifyDateRequest, String typeOfClassification) throws ClassifyMethodNotFound {
+        try {
 
-        if (dbFiles == null)
-            return ResponseMessage.getInstance("Invalid Date !");
+            logger.info("Service of date");
+            List<DBFile> dbFiles = dbFileRepository.getAllBetweenDates(classifyDateRequest.getStartDate(), classifyDateRequest.getEndDate());
 
-        ClassifyCaching.getClassification().put(typeOfClassification, dbFiles);
+            if (dbFiles == null)
+                return ResponseMessage.getInstance(INVALID_INPUT);
 
-        return ResponseMessage.getInstance("Classify date done successfully!");
+            ClassifyCaching.getClassification().put(typeOfClassification, dbFiles);
+
+            return ResponseMessage.getInstance(SUCCESS);
+
+        }catch (Exception e){
+            throw new ClassifyMethodNotFound(NOT_ALLOWED);
+        }
     }
 
 }

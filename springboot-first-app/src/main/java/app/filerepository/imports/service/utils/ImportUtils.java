@@ -19,7 +19,7 @@ public class ImportUtils {
     public static String getCurrentTime() {
         Calendar cal = Calendar.getInstance();
         Date date=cal.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         return dateFormat.format(date);
     }
 }

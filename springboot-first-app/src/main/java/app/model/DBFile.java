@@ -3,16 +3,16 @@ package app.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.persistence.*;
+import static app.model.ConstantTable.*;
 
 
 @Entity
-@Table(name = "files3")
+@Table(name = TABLE_NAME)
 public class DBFile {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @GeneratedValue(generator = ID_TYPE)
+    @GenericGenerator(name = ID_TYPE, strategy = STRATEGY)
     private String id;
 
     private String fileName;

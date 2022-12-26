@@ -1,6 +1,7 @@
 package app.fileclassification.service.abs;
 
-import app.repository.DBFileRepository;
+import app.exception.ClassifyMethodNotFound;
+import app.repository.db.DBFileRepository;
 import app.response.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,6 @@ public abstract class AClassify<T> {
 
     public static final Logger logger = LoggerFactory.getLogger(AClassify.class);
 
-    public abstract ResponseMessage classify(T value, String typeOfClassification);
+    public abstract ResponseMessage classify(T value, String typeOfClassification) throws ClassifyMethodNotFound;
 
 }

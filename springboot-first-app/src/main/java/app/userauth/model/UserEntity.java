@@ -4,19 +4,20 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "user")
+import static app.userauth.model.Constant.*;
 
+@Entity
+@Table(name = TABLE_NAME)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = ID_FIELD)
     private int id;
-    @Column(name="username")
+    @Column(name = USER_NAME_FIELD)
     private String username;
-    @Column(name="password")
+    @Column(name = PASSWORD_FIELD)
     private String password;
-    @Column(name="role")
+    @Column(name = ROLE_FIELD)
     private String role;
     private static final Logger logger = LoggerFactory.getLogger(UserEntity.class);
     public UserEntity() {

@@ -1,7 +1,7 @@
 package app.filerepository.imports.controller;//package app.filerepository.imports.controller;
 
-import app.config.TokenProvider;
-import app.filerepository.imports.service.enums.ImportEnum;
+import app.userauth.config.TokenProvider;
+import app.filerepository.imports.constant.ImportType;
 import app.filerepository.imports.service.factory.ImportFactory;
 
 import app.response.ResponseMessage;
@@ -15,8 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static app.userauth.role.RoleEnum.ADMIN;
-import static app.userauth.role.RoleEnum.STAFF;
+import static app.filerepository.imports.constant.ImportConstant.*;
+import static app.filerepository.imports.constant.ImportEndPoint.*;
+import static app.userauth.role.RoleEnum.*;
 
 @RestController
 public class Import {
@@ -27,25 +28,28 @@ public class Import {
     TokenProvider jwtTokenUtils;
     private static final Logger logger = LoggerFactory.getLogger(Import.class);
 
-
-    @PostMapping("/uploadFile")
+    @PostMapping(IMPORT_WITHOUT_OVERWRITE_END_POINT)
     public ResponseMessage uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
         String role =  jwtTokenUtils.getRole(request);
-        logger.info("UploadFile Response created");
-
 
         if(role.equalsIgnoreCase(ADMIN.name()) || role.equalsIgnoreCase(STAFF.name())) {
-            return importFactory.factory(file, ImportEnum.IMPORT_WITHOUT_OVERWRITE.name());
+            logger.info("UploadFile Response created");
+            return importFactory.factory(file, ImportType.IMPORT_WITHOUT_OVERWRITE.name());
         }
-        else {
-            return ResponseMessage.getInstance("Error !! ,"+"Role: "+role+ " has no permission to upload this file");
-        }
+
+        return ResponseMessage.getInstance(NO_PERMISSION_TO_IMPORT);
     }
 
-    @PostMapping("/overwriteFile")
-    public ResponseMessage overwriteFile(@RequestParam("file") MultipartFile file) throws Exception {
-        logger.info("Overwrite file controller");
-        return importFactory.factory(file, ImportEnum.IMPORT_WITH_OVERWRITE.name());
+    @PostMapping(IMPORT_WITH_OVERWRITE_END_POINT)
+    public ResponseMessage overwriteFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+        String role =  jwtTokenUtils.getRole(request);
+
+        if(role.equalsIgnoreCase(ADMIN.name())) {
+            logger.info("Overwrite file controller");
+            return importFactory.factory(file, ImportType.IMPORT_WITH_OVERWRITE.name());
+        }
+
+        return ResponseMessage.getInstance(NO_PERMISSION_TO_IMPORT);
     }
 
 }

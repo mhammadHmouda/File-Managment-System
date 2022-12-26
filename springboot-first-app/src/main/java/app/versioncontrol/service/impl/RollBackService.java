@@ -1,9 +1,10 @@
 package app.versioncontrol.service.impl;
 
+import app.exception.RollBackException;
 import app.model.DBFile;
-import app.versioncontrol.request.RollBackRequest;
-import app.repository.DBFileRepository;
+import app.repository.db.DBFileRepository;
 import app.response.ResponseMessage;
+import app.versioncontrol.request.RollBackRequest;
 import app.versioncontrol.service.intf.IRollBackService;
 import app.versioncontrol.service.utils.RollBackUtils;
 import org.slf4j.Logger;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static app.versioncontrol.constant.ConstantRollBack.*;
 
 @Service
 public class RollBackService implements IRollBackService {
@@ -25,27 +28,28 @@ public class RollBackService implements IRollBackService {
             List<DBFile> filesWithName = dbFileRepository.findByName(rollBackRequest.getFileName());
             if(filesWithName.size() == 0){
                 logger.warn("Invalid file name: " + rollBackRequest.getFileName());
-                return ResponseMessage.getInstance("Invalid file name!");
+                return ResponseMessage.getInstance(INVALID_FILE_NAME);
             }
 
             int latestVersion = RollBackUtils.getLatestVersion(filesWithName);
 
             if(rollBackRequest.getVersion() == latestVersion)
-                return ResponseMessage.getInstance("This is a latest version!");
+                return ResponseMessage.getInstance(LATEST_VERSION);
 
             List<DBFile> versionWantDelete = RollBackUtils.getTheFileWantDelete(filesWithName, rollBackRequest.getVersion());
 
             if(versionWantDelete.size() == 0)
-                return ResponseMessage.getInstance("This version does not exist!");
+                return ResponseMessage.getInstance(NOT_EXIST_FILE);
 
             dbFileRepository.deleteAll(versionWantDelete);
 
             logger.info("RollBack done successfully of the version " + rollBackRequest.getVersion() );
 
-            return ResponseMessage.getInstance("RollBack done successfully");
+            return ResponseMessage.getInstance(SUCCESS_ROLL_BACK);
+
         }catch (Exception e){
             logger.error("Error in RollBack of version " + rollBackRequest.getVersion()+" for "+rollBackRequest.getFileName()+" file");
-            throw new Exception(e.getMessage());
+            throw new RollBackException(e.getMessage());
         }
 
     }

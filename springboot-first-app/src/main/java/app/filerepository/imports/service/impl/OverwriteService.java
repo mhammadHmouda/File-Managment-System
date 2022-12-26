@@ -1,36 +1,50 @@
 package app.filerepository.imports.service.impl;
 
+import app.exception.ImportException;
+import app.filerepository.export.service.utils.ExportUtils;
+import app.filerepository.imports.encrypt.EncryptionService;
 import app.filerepository.imports.service.intf.IImportService;
 import app.filerepository.imports.service.utils.ImportUtils;
 import app.model.DBFile;
 import app.response.ResponseMessage;
-import app.filerepository.export.service.utils.ExportUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static app.filerepository.imports.constant.ImportConstant.INVALID_TYPE;
+import static app.filerepository.imports.constant.ImportConstant.OVERWRITE_SUCCESS;
 
 
 @Service
 public class OverwriteService extends IImportService {
 
 
-    public ResponseMessage save(MultipartFile file) throws IOException {
-        List<DBFile> dbFiles = fileDBRepository.findByName(file.getOriginalFilename());
+    public ResponseMessage save(MultipartFile file) throws Exception {
 
-        int version = ImportUtils.findLatestVersion(dbFiles);
-        DBFile dbFile = dbFiles.stream().filter(f -> f.getVersion() == version).collect(Collectors.toList()).get(0);
+        try {
 
-        fileDBRepository.delete(dbFile);
+            List<DBFile> dbFiles = fileDBRepository.findByName(file.getOriginalFilename());
 
-        String contentType = ExportUtils.getOriginalType(file.getOriginalFilename());
+            int version = ImportUtils.findLatestVersion(dbFiles);
+            DBFile dbFile = dbFiles.stream().filter(f -> f.getVersion() == version).collect(Collectors.toList()).get(0);
 
-        DBFile newFile = new DBFile(file.getOriginalFilename(), contentType, file.getSize(), version, file.getBytes(), ImportUtils.getCurrentTime());
-        fileDBRepository.save(newFile);
+            fileDBRepository.delete(dbFile);
 
-        return ResponseMessage.getInstance("File overwritten successfully");
+            String contentType = ExportUtils.getOriginalType(file.getOriginalFilename());
+
+            byte[] data = EncryptionService.encrypt(file.getBytes());
+
+            DBFile newFile = new DBFile(file.getOriginalFilename(), contentType, file.getSize(), version, data, ImportUtils.getCurrentTime());
+
+            fileDBRepository.save(newFile);
+
+            return ResponseMessage.getInstance(OVERWRITE_SUCCESS);
+
+        }catch (Exception e){
+            throw new ImportException(INVALID_TYPE);
+        }
     }
 
 }

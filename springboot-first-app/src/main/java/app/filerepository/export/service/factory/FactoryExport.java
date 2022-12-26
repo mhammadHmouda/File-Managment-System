@@ -2,7 +2,7 @@ package app.filerepository.export.service.factory;
 
 import app.fileclassification.cach.ClassifyCaching;
 import app.model.DBFile;
-import app.repository.DBFileRepository;
+import app.repository.db.DBFileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class FactoryExport {
     private static final Logger logger = LoggerFactory.getLogger(FactoryExport.class);
     public static List<DBFile>  factory(String value, String name, DBFileRepository dbFileRepository){
         if(name.equals(NAME.name())){
-            logger.info("Classify all files that has this Name : "+value);
+            logger.info("Export all files that has this Name : "+value);
             if(ClassifyCaching.getClassification().containsKey(name)){
                 logger.info("Get files from caching");
                 return ClassifyCaching.getClassification().get(name);
@@ -40,10 +40,6 @@ public class FactoryExport {
             }
             logger.info("Get file from database");
             return dbFileRepository.findBySize(Integer.parseInt(value));
-        }
-        else if(name.equals(VERSION.name())){
-            logger.info("Classify all files of Size "+value);
-            return dbFileRepository.findByVersion(value);
         }
         else if(name.equals(DATE.name())){
             logger.info("Classify all files of Date "+value);
