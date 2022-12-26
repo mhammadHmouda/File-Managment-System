@@ -24,8 +24,9 @@ public class Delete {
     private TokenProvider jwtTokenUtils;
     private static final Logger logger = LoggerFactory.getLogger(Delete.class);
 
+
     @DeleteMapping(DELETE_BY_ID_END_POINT)
-    public ResponseMessage deleteFile(@PathVariable String fileId, HttpServletRequest request) throws DeleteException {
+    public synchronized ResponseMessage deleteFile(@PathVariable String fileId, HttpServletRequest request) throws DeleteException {
         String role = jwtTokenUtils.getRole(request);
         if(role.equalsIgnoreCase(ADMIN.name())){
             logger.info("create delete response for "+fileId);
@@ -35,7 +36,7 @@ public class Delete {
     }
 
     @DeleteMapping(DELETE_ALL_FILE_END_POINT)
-    public ResponseMessage deleteAllFiles(HttpServletRequest request) throws DeleteException {
+    public synchronized ResponseMessage deleteAllFiles(HttpServletRequest request) throws DeleteException {
         String role = jwtTokenUtils.getRole(request);
         logger.info("deleteAllFiles Response created ");
         if(role.equalsIgnoreCase(ADMIN.name())){

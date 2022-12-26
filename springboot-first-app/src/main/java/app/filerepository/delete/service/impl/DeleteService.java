@@ -23,7 +23,7 @@ public class DeleteService implements IDeleteService {
 
             DBFile file = dbFileRepository.findById(id).get();
             logger.warn("The file with Id : " + id + " is not exist!!");
-            return ResponseMessage.getInstance(NOT_EXIST);
+            return ResponseMessage.getInstance(SUCCESS);
         }catch (Exception e){
             throw new DeleteException(SOMETHING_ERROR);
         }

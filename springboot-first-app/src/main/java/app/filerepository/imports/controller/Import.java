@@ -29,7 +29,7 @@ public class Import {
     private static final Logger logger = LoggerFactory.getLogger(Import.class);
 
     @PostMapping(IMPORT_WITHOUT_OVERWRITE_END_POINT)
-    public ResponseMessage uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+    public synchronized ResponseMessage uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
         String role =  jwtTokenUtils.getRole(request);
 
         if(role.equalsIgnoreCase(ADMIN.name()) || role.equalsIgnoreCase(STAFF.name())) {
@@ -41,7 +41,7 @@ public class Import {
     }
 
     @PostMapping(IMPORT_WITH_OVERWRITE_END_POINT)
-    public ResponseMessage overwriteFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+    public synchronized ResponseMessage overwriteFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
         String role =  jwtTokenUtils.getRole(request);
 
         if(role.equalsIgnoreCase(ADMIN.name())) {

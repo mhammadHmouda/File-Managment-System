@@ -25,7 +25,7 @@ public class RollBack {
     TokenProvider jwtTokenUtils;
     private static final Logger logger = LoggerFactory.getLogger(RollBack.class);
     @PostMapping("/rollBack")
-    ResponseMessage rollBack(@RequestBody RollBackRequest rollBackRequest, HttpServletRequest request) throws Exception {
+    public synchronized ResponseMessage rollBack(@RequestBody RollBackRequest rollBackRequest, HttpServletRequest request) throws Exception {
         String role =  jwtTokenUtils.getRole(request);
 
         if(role.equalsIgnoreCase(ADMIN.name())) {
