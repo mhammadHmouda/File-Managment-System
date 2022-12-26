@@ -1,5 +1,6 @@
 package app.filerepository.imports.service.impl;
 
+import app.exception.FileStorageException;
 import app.filerepository.export.service.utils.ExportUtils;
 import app.filerepository.imports.encrypt.EncryptionService;
 import app.filerepository.imports.service.intf.IImportService;
@@ -44,14 +45,14 @@ public class ImportService extends IImportService {
 
             byte[] data = EncryptionService.encrypt(file.getBytes());
 
-            DBFile FileDB = new DBFile(file.getOriginalFilename(), contentType, file.getSize(), version, file.getBytes(), ImportUtils.getCurrentTime());
+            DBFile FileDB = new DBFile(file.getOriginalFilename(), contentType, file.getSize(), version, data, ImportUtils.getCurrentTime());
 
             fileDBRepository.save(FileDB);
 
             return ResponseMessage.getInstance(IMPORT_SUCCESS);
 
         }catch (Exception e){
-            return ResponseMessage.getInstance("yes");
+            throw new FileStorageException(e.getMessage());
         }
     }
 

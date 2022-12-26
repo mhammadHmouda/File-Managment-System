@@ -54,9 +54,9 @@ public class ExportService implements IExportService {
 
             DBFile dbFile = dbFiles.stream().max(Comparator.comparing(DBFile::getVersion)).get();
 
-//        byte[] data = EncryptionService.decrypt(dbFile.getData());
+            byte[] data = EncryptionService.decrypt(dbFile.getData());
 
-//        dbFile.setData(data);
+            dbFile.setData(data);
 
             logger.info("File is fetched successfully!!");
 
@@ -64,7 +64,6 @@ public class ExportService implements IExportService {
                     .path(DOWNLOAD_URL).path(dbFile.getFileName()).toUriString();
 
             return ResponseFile.getInstance(dbFile.getFileName(), fileDownloadUri, dbFile.getFileType(), dbFile.getSize());
-
         }catch (Exception e){
             throw new Exception(INVALID_EXPORT);
         }

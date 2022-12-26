@@ -7,7 +7,4 @@ public class FileStorageException extends RuntimeException {
         super(message);
     }
 
-    public FileStorageException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
